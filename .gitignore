@@ -1,0 +1,5 @@
+# Ignore presentations
+*.pptx
+
+#Ignore logs
+*.log
