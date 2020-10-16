@@ -221,3 +221,31 @@ id	|| flag
 ---------------------------------------
 4		|| fl3
 */
+
+create table flags6
+        (
+        id int,
+        fl1 varchar(6),
+        fl2 varchar(6),
+        fl3 varchar(6),
+        fl4 varchar(6),
+        fl5 varchar(6),
+        fl6 varchar(6),
+        fl7 varchar(6),
+        fl8 varchar(6),
+        fl9 varchar(6)
+        );
+
+drop table flags6;
+
+insert into flags6
+values
+(1  , true , true , true , true , true , true , true , true , true),
+(2  , true , false , false , true , true , true , true , true , true),
+(3  , true , false , true , false , false , true , true , true , false),
+(4  , false , false , true , false , false , false , false , false , false),
+(5  , false , false , false , false , false , false , false , false , false);
+
+select *
+from flags6
+where length(fl1 || fl2 || fl3 || fl4 || fl5 || fl6 || fl7 || fl8 || fl9) = 5*8 + 4;
