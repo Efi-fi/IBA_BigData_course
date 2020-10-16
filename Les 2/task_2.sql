@@ -248,4 +248,4 @@ values
 
 select *
 from flags6
-where length(fl1 || fl2 || fl3 || fl4 || fl5 || fl6 || fl7 || fl8 || fl9) = 5*8 + 4;
+where length(fl1 || fl2 || fl3 || fl4 || fl5 || fl6 || fl7 || fl8 || fl9) = 5*8 + 4*1; -- 8 times false and 1 time true
