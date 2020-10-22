@@ -41,6 +41,29 @@ insert into students values
 (8, 4, 3),
 (9, 6, 3);
 
+
 select groupid, avg(score)
 from students
 group by groupid;
+
+select *
+from students
+order by score;
+
+select avg(score)
+from students;
+
+@
+create procedure form_groups()
+language sql
+p1:
+begin
+        declare sum_score int;
+        declare avg_score float;
+        declare group_sum int;q
+end p1
+@
+        
+        
+        
+
