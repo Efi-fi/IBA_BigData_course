@@ -6,3 +6,6 @@
 
 #Ignore desktop.ini
 desktop.ini
+
+#Ignore schedule
+*.xlsx
