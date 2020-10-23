@@ -246,6 +246,6 @@ values
 (4  , false , false , true , false , false , false , false , false , false),
 (5  , false , false , false , false , false , false , false , false , false);
 
-select *
+select id, 'fl' || cast(locate(true, fl1 || fl2 || fl3 || fl4 || fl5 || fl6 || fl7 || fl8 || fl9)/5+1 as varchar(6))
 from flags6
 where length(fl1 || fl2 || fl3 || fl4 || fl5 || fl6 || fl7 || fl8 || fl9) = 5*8 + 4*1; -- 8 times false and 1 time true

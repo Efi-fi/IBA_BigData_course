@@ -119,7 +119,7 @@ end p1
 2) Добавляем поля номера
 3) Создаём переменную, хранящую минимальную разницу, номера строк гонщиков
 4) Проходим по списку и находим разницы между соседними строками
-5) Если разница меньше чем в переменной перезаписываем переменные
+5) Если разница меньше чем в переменной перезаписываем переменные, так как много одинаковых разниц, то буду записывать их в таблицу diff 
 */
 DROP TABLE racers;
 CREATE TABLE
@@ -145,13 +145,129 @@ insert into racers values
 ('Hartley', 'Toro Rosso', 138),
 ('Grosjean', 'Haas', 161),
 ('Ericsson', 'Sauber', 162);
+
+
+
+
+
         
+@
+create procedure min_dif_1()
+language sql
+p2:
+begin
+        create global temporary table racers_new
+        (
+        name VARCHAR(32),
+        team VARCHAR(32),
+        timetofirst INT,
+        num int
+        );
+        
+        insert into racers_new(num, name, team, timetofirst) 
+        select row_number() over( order by timetofirst) num, name, team, timetofirst
+        from racers
+        order by timetofirst;
+        
+        create global temporary table diff
+        (
+        racer_1 int,
+        racer_2 int,
+        diff int
+        );
+        
+        insert into diff(racer_1, racer_2, diff)
+        select num, num+1, lead(timetofirst) over(order by timetofirst) - timetofirst as min_diff
+        from racers_new;
+        
+        declare mindiff int;
+        set mindiff =
+        (select min(diff)
+        from diff);
+        
+        select r1.name Racer1, r1.team Team1, r2.name Racer2, r2.team Team2, r1.timetofirst Time1, r2.timetofirst Time2, d.diff
+        from diff d
+        left join racers_new r1 on d.racer_1 = r1.num
+        left join racers_new r2 on d.racer_2 = r2.num
+        where d.diff = mindiff;
+        
+end p2
+@
+
+drop table racers_new;
+drop procedure min_dif;
+
+
+/*
+Найти 5 гонщиков с минимальным разрвом времени финиша
+*/
+select *
+from 
+(select *, row_number() over(order by timetofirst) n_row
+from racers)
+where n_row 
+
+select n_row
+from
+(select *, row_number() over(order by timetofirst) n_row, lead(timetofirst, 5) over(order by timetofirst) diff5
+from racers)
+where diff5 in
+        (select min(diff5)
+        from
+        (select lead(timetofirst, 5) over(order by timetofirst) diff5
+        from racers)
+        );
+
+
+@
+create or replace procedure min_diff_n(in n int)
+DYNAMIC RESULT SETS 1
+language sql
+reads sql data
+begin
+        declare min_diff int;
+        declare n_row int;
+        
+        set min_diff = 
+        (select min(diff_n)
+        from
+        (select lead(timetofirst, 5) over(order by timetofirst) diff_n
+        from racers)
+        );
+        
+        set n_row =
+        (select n_row
+        from
+        (select *, row_number() over(order by timetofirst) n_row, lead(timetofirst, 5) over(order by timetofirst) diff_n
+        from racers)
+        where diff_n = min_diff
+        );
+        
+        DECLARE c1 CURSOR WITH HOLD WITH RETURN FOR
+                (select *
+                from
+                (select name, team, timetofirst, row_number() over(order by timetofirst) row_n
+                from racers)
+                where row_n between n_row and n_row+4);
+        open c1;
+end p2
+@
+
+
+@
+drop procedure min_diff_n
+@
 
 /*
 Задание 3
 Реализовать свой row_number для таблицы employee, без использования каких либо функций 
 Доступно select, from, where, group by
+
 */
+
+select *, '1'
+from
+(select '1';
 
 
 /*
@@ -159,3 +275,10 @@ insert into racers values
 Сгенерировать запрос, который будет считать количество строк в каждой таблице схемы
 Подсказка: посмотреть syscat.tables
 */
+
+select *
+from syscat.tables;
+
+select tabschema, tabname, avgrowsize, card -- (select count(*) from tabschema.tabname) as num_row
+from syscat.tables
+where tabschema = 'VKM83249';
