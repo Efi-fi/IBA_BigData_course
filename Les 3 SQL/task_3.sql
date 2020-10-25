@@ -2,15 +2,69 @@
 Таблица пользователей:
 
 Поля взятые из Telegram bot API:
-id	        Integer	Unique identifier for this user or bot
+id	Integer	Unique identifier for this user or bot
 first_name	String	User's or bot's first name
 last_name	String	Optional. User's or bot's last name
 username	String	Optional. User's or bot's username
 language_code	String	Optional. IETF language tag of the user's language
 
-Остальные поля
-...
+Остальные поля:
+gender       | character varying(6)           |           |          |
+floor        | smallint                       |           |          |
+room         | character varying(5)           |           |          |
+course       | smallint                       |           |          |
+faculty      | character varying(6)           |           |          |
+birth_date   | smallint                       |           |          |
+created      | timestamp(0) without time zone |           |          |
+updated      | timestamp(0) without time zone |           |          |
+count_mess   | integer                        |           |          | 1
+role         | character varying(6)           |           |          | 'user3'::character varying
+crimes       | integer                        |           |          | 0
+sub          | boolean                        |           |          | true
 */
+create table Users(
+        id int primary key unique not null,
+        first_name varchar(32),
+        last_name varchar(32),
+        username varchar(32),
+        language_code varchar(8),
+        gender varchar(8), --M, Male, F, Female
+        floor smallint,
+        room varchar(8),
+        course smallint,
+        faculty varchar(8),
+        birth_date date,
+        created timestamp,
+        updated timestamp,
+        count_mess int,
+        role varchar(8),
+        crimes int,
+        sub smallint); -- 0-no sub, 1- sub
+
+alter table Users
+rename column telegram_id to id; -- not working, because it's primary key
+
+drop table Users;
+/*
+
+
+Таблица сообщений:
+id	                Integer	Unique message identifier inside this chat
+from	                User	Optional. Sender, empty for messages sent to channels
+datetime                Integer	Date the message was sent in Unix time
+text	                String	Optional. For text messages, the actual UTF-8 text of the message, 0-4096 characters
+*/
+create table Messages(
+        id int primary key unique not null,
+        from_id int,
+        datetime timestamp,
+        text varchar(1024),
+        foreign key (from_id)
+        references Users(id)
+        on update no action
+        on delete no action);
+        
+        
 
 /*
 ----1----
@@ -265,9 +319,12 @@ drop procedure min_diff_n
 
 */
 
-select *, '1'
+select *, case 
+when empno < 200000 then empno/10
+else
 from
-(select '1';
+(select *
+from employee)
 
 
 /*
