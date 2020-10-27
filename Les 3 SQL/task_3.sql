@@ -56,13 +56,39 @@ text	                String	Optional. For text messages, the actual UTF-8 text o
 */
 create table Messages(
         id int primary key unique not null,
-        from_id int,
-        datetime timestamp,
+        user_id int,
+        created timestamp,
         text varchar(1024),
         foreign key (from_id)
         references Users(id)
         on update no action
         on delete no action);
+
+/*
+Объявления: 
+Ads
+*/
+create table Ads(
+        id int primary key unique not null,
+        theme varchar(32),
+        title varchar(32),
+        text varchar(256),
+        user_id int,
+        created timestamp,
+        foreign key (user_id)
+        references Users(id)
+        on update no action
+        on delete cascade);
+        
+        
+
+/*
+Mailings
+*/
+create table Mails(
+        id int primary key unique not null,
+         
+
         
         
 
