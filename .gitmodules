@@ -1,3 +1,9 @@
 [submodule "Les"]
 	path = Les
 	url = https://github.com/Efi-fi/learning.git
+[submodule "Course"]
+	path = Course
+	url = https://github.com/Efi-fi/IBA_course_work.git
+[submodule "Course_work"]
+	path = Course_work
+	url = https://github.com/Efi-fi/IBA_course_work.git
