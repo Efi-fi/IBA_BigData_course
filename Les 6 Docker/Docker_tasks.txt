@@ -1,0 +1,152 @@
+Command	                Description
+--------------------------------------------------------------------------------
+docker attach	        Attach local standard input, output, and error streams to a running container
+docker build	        Build an image from a Dockerfile
+docker builder	        Manage builds
+docker checkpoint	    Manage checkpoints
+docker commit	        Create a new image from a container’s changes
+docker config	        Manage Docker configs
+docker container	    Manage containers
+docker context	        Manage contexts
+docker cp	            Copy files/folders between a container and the local filesystem
+docker create	        Create a new container
+docker diff	            Inspect changes to files or directories on a container’s filesystem
+docker events	        Get real time events from the server
+docker exec	            Run a command in a running container
+docker export	        Export a container’s filesystem as a tar archive
+docker history	        Show the history of an image
+docker image	        Manage images
+docker images	        List images
+docker import	        Import the contents from a tarball to create a filesystem image
+docker info	            Display system-wide information
+docker inspect	        Return low-level information on Docker objects
+docker kill	            Kill one or more running containers
+docker load	            Load an image from a tar archive or STDIN
+docker login	        Log in to a Docker registry
+docker logout	        Log out from a Docker registry
+docker logs	            Fetch the logs of a container
+docker manifest	        Manage Docker image manifests and manifest lists
+docker network	        Manage networks
+docker node	            Manage Swarm nodes
+docker pause	        Pause all processes within one or more containers
+docker plugin	        Manage plugins
+docker port	            List port mappings or a specific mapping for the container
+docker ps	            List containers
+docker pull	            Pull an image or a repository from a registry
+docker push	            Push an image or a repository to a registry
+docker rename	        Rename a container
+docker restart      	Restart one or more containers
+docker rm	            Remove one or more containers
+docker rmi	            Remove one or more images
+docker run          	Run a command in a new container
+docker save	            Save one or more images to a tar archive (streamed to STDOUT by default)
+docker search	        Search the Docker Hub for images
+docker secret	        Manage Docker secrets
+docker service	        Manage services
+docker stack	        Manage Docker stacks
+docker start	        Start one or more stopped containers
+docker stats	        Display a live stream of container(s) resource usage statistics
+docker stop	            Stop one or more running containers
+docker swarm	        Manage Swarm
+docker system	        Manage Docker
+docker tag	            Create a tag TARGET_IMAGE that refers to SOURCE_IMAGE
+docker top	            Display the running processes of a container
+docker trust	        Manage trust on Docker images
+docker unpause	        Unpause all processes within one or more containers
+docker update	        Update configuration of one or more containers
+docker version	        Show the Docker version information
+docker volume	        Manage volumes
+docker wait	            Block until one or more containers stop, then print their exit codes
+
+
+1.1 Getting started Start 3 containers from image that does not automatically exit, such as nginx, detached. Stop 2 of the containers leaving 1 up. Submitting the output for docker ps -a is enough to prove this exercise has been done.
+
+root@efim-tp:/home/efim# docker ps -a
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS                      PORTS               NAMES
+5f4b2833443d        nginx               "/docker-entrypoint.…"   2 minutes ago       Exited (0) 8 seconds ago                        stupefied_jennings
+b7c0c90c455c        nginx               "/docker-entrypoint.…"   2 minutes ago       Exited (0) 16 seconds ago                       boring_matsumoto
+d9ad0a06e445        nginx               "/docker-entrypoint.…"   3 minutes ago       Up 3 minutes                80/tcp              nervous_cartwright
+
+
+1.2 Cleanup We’ve left containers and a image that won’t be used anymore and are taking space, as docker ps -as and docker images will reveal. Clean the docker daemon from all images and containers. Submit the output for docker ps -a and docker images
+
+root@efim-tp:/home/efim# docker ps -a
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
+root@efim-tp:/home/efim# docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+root@efim-tp:/home/efim#
+
+
+1.3 Now that we’ve warmed up it’s time to get inside a container while it’s running! Start image devopsdockeruh/exec_bash_exercise, it will start a container with clock-like features and create a log. Go inside the container and use tail -f ./logs.txt to follow the logs. Every 15 seconds the clock will send you a “secret message”. Submit the secret message and command(s) given as your answer.
+
+root@efim-tp:/home/efim# docker exec -i 33 tail -f -n1 ./logs.txt
+Sun, 01 Nov 2020 12:08:50 GMT
+Secret message is:
+"Docker is easy"
+Sun, 01 Nov 2020 12:08:56 GMT
+Sun, 01 Nov 2020 12:08:59 GMT
+Sun, 01 Nov 2020 12:09:02 GMT
+Sun, 01 Nov 2020 12:09:05 GMT
+Secret message is:
+"Docker is easy"
+
+1.4 Create a Dockerfile that starts with FROM devopsdockeruh/overwrite_cmd_exercise. Add a CMD line to the Dockerfile. The developer has poorly documented how the application works. Nevertheless once you will execute an application (run a container from an image) you will have some clues on how it works. Your task is to run an application so that it will simulate a number sequence. When you will build an image tag it as “docker-sequence” so that docker run docker-sequence starts the Application.
+
+
+root@efim-tp:/home/efim/Dockerfile1.4# docker build -t docker-sequence .
+Sending build context to Docker daemon  14.85kB
+Step 1/2 : FROM devopsdockeruh/overwrite_cmd_exercise
+ ---> 3d2b622b1849
+Step 2/2 : CMD
+ ---> Running in e53e91d01a5f
+Removing intermediate container e53e91d01a5f
+ ---> 29ba4df3290b
+Successfully built 29ba4df3290b
+Successfully tagged docker-sequence:latest
+root@efim-tp:/home/efim/Dockerfile1.4# docker images
+REPOSITORY                              TAG                 IMAGE ID            CREATED             SIZE
+docker-sequence                         latest              29ba4df3290b        23 seconds ago      908MB
+<none>                                  <none>              2919f4150b2e        9 minutes ago       908MB
+<none>                                  <none>              09d11cd6b5c0        11 minutes ago      908MB
+docker-sequence1                        latest              37713c838378        About an hour ago   908MB
+devopsdockeruh/exec_bash_exercise       latest              c52ece77379e        5 months ago        942MB
+devopsdockeruh/overwrite_cmd_exercise   latest              3d2b622b1849        12 months ago       908MB
+root@efim-tp:/home/efim/Dockerfile1.4# docker run docker-sequence
+
+-h,       	--help           	to show this message
+-a [age], 	--adult [age]    	to check if you're older than 18
+-c [time],	--clock [time]   	to start a clock
+-t [size],	--triangle [size]	to draw a triangle, takes second argument as the size
+    
+root@efim-tp:/home/efim/Dockerfile1.4# docker run docker-sequence -c
+1
+2
+3
+4
+5
+
+
+
+
+1.5 In this exercise we won’t create a new Dockerfile. Image devopsdockeruh/first_volume_exercise has instructions to create a log into /usr/app/logs.txt. Start the container with bind mount so that the logs are created into your filesystem. Submit your used commands for this exercise.
+
+root@efim-tp:/usr/app# docker run -d -it --mount type=bind,source="$(pwd)",target="$(pwd)" devopsdockeruh/first_volume_exercise
+f140ab06d6ab0b3341976b8ff988b43ac070e7add6694706338b0030e1fcb79e
+
+
+1.6 In this exercise we won’t create a new Dockerfile. Image devopsdockeruh/ports_exercise will start a web service in port 80. Use -p flag to access the contents with your browser. Submit your used commands for this exercise.
+
+root@efim-tp:/home/efim# docker run -p 127.0.0.1:80:80 -it devopsdockeruh/ports_exercise
+
+1.7 (ONLY EXERCISE 1.10) A good developer creates well written READMEs that can be used to create Dockerfiles with ease. Clone, fork or download a project from https://github.com/docker-hy/frontend-example-docker. Create a Dockerfile for the project and give a command so that the project runs in a docker container with port 5000 exposed and published so when you start the container and navigate to http://localhost:5000 you will see message if you’re successful. Submit the Dockerfile.
+
+FROM node
+WORKDIR /usr/scr/app
+COPY package*.json ./
+RUN npm install
+COPY . .
+EXPOSE 5000
+RUN npm install -g serve
+RUN serve -s -l 5000
+
+1.8 Lets create a Dockerfile for a Java Spring project: https://github.com/docker-hy/spring-example-project The setup should be straightforward with the README instructions. Tips to get you started: Use openjdk image FROM openjdk:tag to get java instead of installing it manually. Pick the tag by using the README and dockerhub page. You’ve completed the exercise when you see a ‘Success’ message in your browser.
