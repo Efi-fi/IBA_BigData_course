@@ -9,3 +9,10 @@ desktop.ini
 
 #Ignore schedule
 *.xlsx
+
+#Ignore exe
+*.exe
+
+#Igrore archives
+*.rar
+*.zip
