@@ -1,17 +1,17 @@
-##Установка Kubernetes:
-###Загрузка последней версии
+## Установка Kubernetes:
+### Загрузка последней версии
 ```
 curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
 ```
-###Сделайте двоичный файл kubectl исполняемым
+### Сделайте двоичный файл kubectl исполняемым
 `chmod +x ./kubectl`
-###Переместите двоичный файл в директорию из переменной окружения PATH
+### Переместите двоичный файл в директорию из переменной окружения PATH
 `sudo mv ./kubectl /usr/local/bin/kubectl`
 ###Убедитесь, что установлена последняя версия
 `kubectl version --client`
 
-##Домашняя работа 
-###Переход в своё пространство:
+## Домашняя работа 
+### Переход в своё пространство:
 `kubectl config set-context --current --namespace=<your_lastname>`
 
 
@@ -82,6 +82,7 @@ configmap/config5 created
 
 ## 6. Создайте копию деплоймента `app` с названием файла appsecret.yaml
 
+
 ## 7. Отредактируйте манифест в файле appsecret.yaml
 
 Необходимо изменить:
@@ -104,7 +105,7 @@ kubectl get ep
 
 ip адреса подов приложения должны совпадать с ip адресами Endpoints в сервисе
 
-##Прочее
-###По поводу ответа на вопрос про команду exec для pod в котором несколько контейнеров
+## Прочее
+### По поводу ответа на вопрос про команду exec для pod в котором несколько контейнеров
 Можно при подключении задать имя контейнера к которому нужно подключиться
 `kubectl exec -i -t my-pod --container main-app -- /bin/bash`
