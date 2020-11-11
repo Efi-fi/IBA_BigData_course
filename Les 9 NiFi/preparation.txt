@@ -1,0 +1,11 @@
+Всем привет, завтра на занятии нам понадобится Docker. Поэтому просьба заранее его установить на ваши компьютеры.
+Linux: https://docs.docker.com/engine/install/#server
+Windows: https://docs.docker.com/docker-for-windows/install/
+Mac: https://docs.docker.com/docker-for-mac/install/
+
+После этого в консоли выполнить команды:
+1. docker pull apache/nifi
+2. docker run -p 8000:8080 -d --name nifi apache/nifi
+3. Подождать пару минут
+
+Затем зайти в браузер и перейти по ссылке: http://localhost:8000/nifi

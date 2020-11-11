@@ -17,3 +17,7 @@ desktop.ini
 #Igrore archives
 *.rar
 *.zip
+
+#Ignore __pycache__
+/__pycache/*
+*.pyc
