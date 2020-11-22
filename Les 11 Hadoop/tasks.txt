@@ -69,7 +69,7 @@ tr_stat = {}
 for row in sys.stdin:
     values = row.split('|')
     if len(values) == 5:
-        tr_id = values[0]
+        tr_id = values[1]
         try:
             tr_stat[tr_id]['total'] += 1
             tr_stat[tr_id]['shared'] += int(values[2])

@@ -1,6 +1,7 @@
 import sys
 
 common_friends = {}
+current_user = 
 
 for row in sys.stdin:
     names = row.split('->')
