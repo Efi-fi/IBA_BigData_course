@@ -21,3 +21,7 @@ for row in sys.stdin:
 from pprint import pprint
 pprint(tr_stat)
 
+
+# Executing
+# cat data.csv | python3 hometask.py > result.json
+
