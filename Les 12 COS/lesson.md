@@ -1,0 +1,14 @@
+s3.eu-de.cloud-object-storage.appdomain.cloud
+bucket-1-efim
+cat.jpg
+
+curl -X "POST" "https://iam.cloud.ibm.com/identity/token" -H 'Accept:application/json' -H 'Content-Type:application/x-www-form-urlencoded' --data-urlencode "apikey=bcUf9K6y-XU9j0hDAF5X-jWUSuqj5tG0gw463knwPQ1z" --data-urlencode "response_type=cloud_iam" --data-urlencode "grant_type=urn:ibm:params:oauth:grant-type:apikey" --insecure
+
+
+curl "https://s3.eu-de.cloud-object-storage.appdomain.cloud/" -H "Authorization: Bearer eyJraWQiOiIyMDIwMTEyMTE4MzQiLCJhbGciOiJSUzI1NiJ9.eyJpYW1faWQiOiJJQk1pZC01NTAwMDk3QldOIiwiaWQiOiJJQk1pZC01NTAwMDk3QldOIiwicmVhbG1pZCI6IklCTWlkIiwianRpIjoiMWIwYTgyY2EtOTAyNi00ZmFlLTkwYTEtNDBlMDY0MTk0ZjlmIiwiaWRlbnRpZmllciI6IjU1MDAwOTdCV04iLCJnaXZlbl9uYW1lIjoiRWZpbSIsImZhbWlseV9uYW1lIjoiS296aGVtaWFraW4iLCJuYW1lIjoiRWZpbSBLb3poZW1pYWtpbiIsImVtYWlsIjoiZWZpbXByb3N0b3Byb0BnbWFpbC5jb20iLCJzdWIiOiJlZmltcHJvc3RvcHJvQGdtYWlsLmNvbSIsImFjY291bnQiOnsidmFsaWQiOnRydWUsImJzcyI6ImNlZDA0MTZiMDE1NzRjYTNiYmM4YTFkOTcyNWUyZWZmIiwiZnJvemVuIjp0cnVlfSwiaWF0IjoxNjA2MjM4NDA2LCJleHAiOjE2MDYyNDIwMDYsImlzcyI6Imh0dHBzOi8vaWFtLmNsb3VkLmlibS5jb20vaWRlbnRpdHkiLCJncmFudF90eXBlIjoidXJuOmlibTpwYXJhbXM6b2F1dGg6Z3JhbnQtdHlwZTphcGlrZXkiLCJzY29wZSI6ImlibSBvcGVuaWQiLCJjbGllbnRfaWQiOiJkZWZhdWx0IiwiYWNyIjoxLCJhbXIiOlsicHdkIl19.O9KzOBwz3mSxegkfGO1HE-BxNuuViddGXUiiB0CZavEW7EMKqbM6ORHfYbJdfXHWV8zNctWqJGMjv3Qxr0UzDnH8OPKZpVvSqPrp9kwWBc3I7Xb3pcLeN2KTPJMFupAe0iYx2nRKOyMZ4FGKJa9Xk8mFUUaSuj4mDrJP1XgEMXjRgo74kB_M7JaxP7jtimBAm3CNhQeOaweQxg0Kawy1rv0CsF5rrzdGJVo6n5KBeBfvRnzoXRG7Cw3mkcKNYKf8C1EZYMyO7LPdjifb6WuxhTezpspYSEy8xCXIVEFAFOj7eHNiHJqtgnc2w6UG4LsdWapZKFanfDt1-spvAfmXMQ" -H "ibm-service-instance-id: 55179dbd-6e8f-4441-ac14-24f2628a1bfe" --insecure
+
+crn:v1:bluemix:public:cloud-object-storage:global:a/ced0416b01574ca3bbc8a1d9725e2eff:55179dbd-6e8f-4441-ac14-24f2628a1bfe::
+
+SELECT * FROM DESCRIBE(cos://eu-de/testprepnov2-bucket/Traffic_Collision_Data_from_2010_to_Present-1.csv)
+INTO cos://eu-de/testprepnov2-bucket/results1/
+STORED AS CSV

@@ -1,0 +1,19 @@
+import sys
+import smtplib
+from email.mime.text import MIMEText
+from email.header import Header
+
+
+def main(dict):
+	server = smtplib.SMTP(dict['host'])
+	server.starttls()
+	server.ehlo()
+	server.login(dict['username'], dict['password'])
+	subject = dict['subject']
+	body = f'Курс доллара: 1$ = {dict["Cur_OfficialRate"]} BYN\r\n\r\nС уважением\r\nЕфим'
+	msg = MIMEText(body, 'plain')
+	msg['Subject'] = Header(subject)
+
+	server.sendmail(dict['from_adr'], [dict['to_adr']], msg.as_string())
+	server.quit()
+	return {}

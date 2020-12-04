@@ -1,13 +1,13 @@
+#!/usr/bin/python3.8
 import sys
 
-common_friends = {}
-current_user = 
 
-for row in sys.stdin:
-    names = row.split('->')
-    user = names[0].strip()
-    friends = names.split(' ')
-    
-
-from pprint import pprint
-pprint(tr_stat)
+for line in sys.stdin:
+    print('-' *100)
+    count = 0
+    for line in sys.stdin:
+        names = line.split("->")
+        user = names[0].strip()
+        friends = names[1][1:-1].split(" ")
+        count += 1
+        print(count)

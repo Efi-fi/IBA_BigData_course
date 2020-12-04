@@ -1,0 +1,4 @@
+applications:
+- name: efim-app-py-cos-db2
+  random-route: true
+  memory:  128M

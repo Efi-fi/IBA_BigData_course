@@ -1,0 +1,9 @@
+requests
+flask
+Flask-WTF
+WTForms
+Werkzeug
+urllib3
+boto3
+ibm-cos-sdk
+ibm_db
