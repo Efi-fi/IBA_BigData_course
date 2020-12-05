@@ -1,0 +1,9 @@
+# Parameters
+# currency
+
+import sys
+
+def main(dict):
+    if 'currency' not in dict:
+        dict['currency'] = 'USD'
+    return dict

@@ -1,0 +1,10 @@
+# Parameters
+# currency
+
+import sys
+import requests
+
+def main(dict):
+	url = f'https://www.nbrb.by/api/exrates/rates/{dict["currency"]}?parammode=2'
+	resp = requests.get(url).json()
+	return resp

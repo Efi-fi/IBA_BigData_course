@@ -1,0 +1,10 @@
+# Parameters
+# username
+# password
+# host
+# from_adr
+
+import sys
+
+def main(dict):
+    return dict

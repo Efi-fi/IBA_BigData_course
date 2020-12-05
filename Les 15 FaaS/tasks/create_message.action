@@ -1,0 +1,8 @@
+# Parameters
+
+import sys
+
+def main(dict):
+    dict['subject'] = f"Курс валюты {dict['Cur_Name'].upper()}"
+    dict['message'] = f"{dict['Cur_Scale']} {dict['Cur_Abbreviation']} = {dict['Cur_OfficialRate']} BYN\r\n*по курсу нацбанка\r\n\r\nС уважением\r\nЕфим"
+    return dict

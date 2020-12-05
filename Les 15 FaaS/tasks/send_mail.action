@@ -1,0 +1,19 @@
+# Parameters
+
+import sys
+import smtplib
+from email.mime.text import MIMEText
+from email.header import Header
+
+
+def main(dict):
+	server = smtplib.SMTP(dict['host'])
+	server.starttls()
+	server.ehlo()
+	server.login(dict['username'], dict['password'])
+	msg = MIMEText(dict['message'], 'plain')
+	msg['Subject'] = Header(dict['subject'])
+
+	server.sendmail(dict['from_adr'], dict['recipients'], msg.as_string())
+	server.quit()
+	return {"Status": "OK"}

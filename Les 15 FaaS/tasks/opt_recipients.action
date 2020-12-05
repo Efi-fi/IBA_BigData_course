@@ -1,0 +1,13 @@
+# Parameters
+# defaul_recipient
+
+import sys
+
+def main(dict):
+    recipients = [
+        dict['default_recipient'],
+        #'375298105570@sms.mts.by',
+        #'other'
+        ]
+    dict['recipients'] = recipients
+    return dict
