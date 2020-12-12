@@ -21,3 +21,6 @@ desktop.ini
 #Ignore __pycache__
 /__pycache/*
 *.pyc
+
+#Ignore creds
+credentials*
