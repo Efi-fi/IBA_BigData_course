@@ -28,7 +28,7 @@ task5 = task4.drop("alert_id").join(task51, (task51.event_time_min == task4.even
 task6 = task5.select(task5.alert_id, task5.event_source_type, explode(task5.entitled_assets).alias('asset_id') , task5.event_time, task5.instance_id, task5.serial)
 #task6.show()
 
-task7 = task6.select(task6.alert_id, task6.event_time, to_date(task6.event_time).alias("date"), task6.asset_id)
+task7 = task6.select(task6.alert_id, task6.event_time, to_date(task6.event_time).alias("date"), task6.asset_id).sort(col("event_time"))
 task7.show()
 
 task7.write.csv('result.csv', header=True)
