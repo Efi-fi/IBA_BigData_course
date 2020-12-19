@@ -15,10 +15,10 @@ df = spark.read.format('json').load('alerts.json')
 #df.printSchema()
 
 task3 = df.withColumn("event_time", to_timestamp(df.event_time))
-#task3.filter(task3.event_time >= lit("2019-06-10") and task3.event_time < lit("2019-06-19")).show()
+task32 = task3.filter(task3.event_time >= lit("2019-06-10")).filter(task3.event_time < lit("2019-06-19"))
 #task3.printSchema()
 
-task4 = task3.filter(df.event_source_type == "healthchecker_alert")
+task4 = task32.filter(df.event_source_type == "healthchecker_alert")
 #task4.show()
 
 task51 = task4.groupBy("alert_id", to_date("event_time").alias("date")).agg(min("event_time").alias("event_time_min"))
