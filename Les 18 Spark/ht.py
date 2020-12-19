@@ -31,5 +31,4 @@ task6 = task5.select(task5.alert_id, task5.event_source_type, explode(task5.enti
 task7 = task6.select(task6.alert_id, task6.event_time, to_date(task6.event_time).alias("date"), task6.asset_id).sort(col("event_time"))
 task7.show()
 
-task7.write.csv('result.csv', header=True)
-
+task7.coalesce(1).write.csv('result.csv')
